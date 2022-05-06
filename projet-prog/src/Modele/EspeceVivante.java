@@ -12,7 +12,7 @@ public class EspeceVivante extends Espece implements Serializable {
 	
 	// constructeur de l'espèce selon ses caracteristiques
 	public EspeceVivante(String nom, double genome, String description) { //Penser a rajouter l'argument image
-		this(nom, genome, description, "./res/img/default.jpg");
+		this(nom, genome, description, "../res/img/default.jpg");
 	}
 	
 	public EspeceVivante(String nom, double genome, String description, String cheminIMG) {

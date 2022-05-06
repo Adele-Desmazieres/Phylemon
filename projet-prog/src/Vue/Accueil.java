@@ -27,7 +27,7 @@ public class Accueil extends JPanel{
         this.add(title, BorderLayout.NORTH);
 
         // Création de l'image suivi de l'ajout au CENTER
-        ImagePanel imageJP = new ImagePanel("res/img/logo_v2.jpg",0,0);
+        ImagePanel imageJP = new ImagePanel("../res/img/logo_v2.jpg",0,0);
         imageJP.setAlignmentX(JPanel.CENTER_ALIGNMENT); imageJP.setAlignmentY(JPanel.CENTER_ALIGNMENT);
         this.add(imageJP,BorderLayout.CENTER);
 

@@ -8,7 +8,7 @@ Les espèces peuvent être sauvegardées et réutilisées entre chaque session.
 
 ## Comment le lancer
 
-Prérequis : Java 11  
+Prérequis : Java 11
 
 Depuis un terminal en bash, placez vous dans le dossier "projet-prog/src" à l'aide de la commande `cd` :
 

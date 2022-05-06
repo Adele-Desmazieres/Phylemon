@@ -1,0 +1,286 @@
+@startuml
+
+title __PHYLEMON's Class Diagram__\n
+
+/'
+dP     dP                   
+88     88                   
+88    .8P dP    dP .d8888b. 
+88    d8' 88    88 88ooood8 
+88  .d8P  88.  .88 88.  ... 
+888888'   `88888P' `88888P' 
+'/
+
+  namespace Vue {
+    class Vue.Accueil {
+      # creaAccueil()
+    }
+    
+  }  
+
+  namespace Vue {
+    class Vue.Bestiaire {
+      + creaBestiaire()
+      - modifBouton()
+      - modifier()
+      - urlEstValide()
+    }
+  }
+  
+
+  namespace Vue {
+    class Vue.ChoixEspeces {
+      + creaChoixEspece()
+    }
+  }
+  
+
+  namespace Vue {
+    class Vue.CreaArbre {
+      - arbre : JTree
+      - echelle : JPanel
+      - indiqFusion : JPanel
+      - matrice_pan : JPanel
+      - suivante : JButton
+      # creaCreaArbre()
+      # demarageCreaArbre()
+    }
+  }
+  
+
+  namespace Vue {
+    class Vue.CreaEspeces {
+      - chemin : String
+      - fond : Color
+      + creaCreaEspece()
+      + placementInter()
+      - backGround()
+      - estNombre()
+      - placementJPanel()
+      - profilComplet()
+    }
+  }
+  
+
+  namespace Vue {
+    class Vue.ImagePanel {
+      - etirer : boolean
+      - chemin : String
+      - image : BufferedImage
+      # paintComponent()
+      - erreur()
+    }
+  }
+  
+
+  namespace Vue {
+    class Vue.Vcharg {
+      - ensemble : LinkedList<JButton>
+      - tmp : File[]
+      + chargement()
+      + choose()
+      + creaPage()
+      + update()
+    }
+  }
+  
+
+  namespace Vue {
+    class Vue.Vue {
+      - menuBar : JMenuBar
+      + affBestiaire()
+      + affCharge()
+      + allRepaint()
+      + changePanel()
+      + creaMenubar()
+      + creaPanels()
+      + majChoixEspece()
+    }
+  }
+
+Vue.CreaArbre o.. Controleur.Controleur
+Vue.Vcharg o.. Controleur.Controleur
+Vue.Vue o.. Vue.ChoixEspeces
+Vue.Vue o.. Vue.CreaArbre
+Vue.Vue o.. Vue.Vcharg
+Vue.Vue o.. Vue.Accueil
+Vue.Vue o.. Vue.Bestiaire
+Vue.Vue o.. Vue.CreaEspeces
+
+
+/'
+8888ba.88ba                 dP          dP          
+88  `8b  `8b                88          88          
+88   88   88 .d8888b. .d888b88 .d8888b. 88 .d8888b. 
+88   88   88 88'  `88 88'  `88 88ooood8 88 88ooood8 
+88   88   88 88.  .88 88.  .88 88.  ... 88 88.  ... 
+dP   dP   dP `88888P' `88888P8 `88888P' dP `88888P' 
+'/
+
+
+  namespace Modele {
+    class Modele.Arbre {
+      + Arbre()
+      + estVide()
+      {static} + fusionne()
+    }
+  }
+  
+
+  namespace Modele {
+    class Modele.Arbre.Noeud {
+      + Noeud()
+    }
+  }
+  
+
+  namespace Modele {
+    abstract class Modele.Espece {
+      # genome : double
+      {static} + distanceGenetique()
+    }
+  }
+  
+
+  namespace Modele {
+    class Modele.EspeceAncetre {
+      - descendants : List<EspeceVivante>
+      + EspeceAncetre()
+    }
+  }
+  
+
+  namespace Modele {
+    class Modele.EspeceVivante {
+      - description : String
+      - img : String
+      - nom : String
+    }
+  }
+  
+
+  namespace Modele {
+    class Modele.Launcher {
+      {static} + main()
+    }
+  }
+  
+
+  namespace Modele {
+    class Modele.Matrice {
+      - arbres : List<Arbre>
+      - deuxAFusionner : Espece[]
+      - distMax, distMin : double
+      - especesChoisies : List<EspeceVivante>
+      - especesTableau : List<Espece>
+      - tableau : double[][]
+      + etapeSuivante()
+    }
+  }
+  
+
+  namespace Modele {
+    class Modele.Sauvegarde {
+      {static} + arboExiste()
+      {static} + chargement()
+      {static} + chargementDiverse()
+      {static} + existe()
+      {static} + listeFichierCharg()
+      {static} + sauvegardeDiverse()
+      {static} + sauvegarder()
+      {static} + traitement()
+      {static} - ecriture()
+    }
+  }
+  
+
+  namespace Modele {
+    class Modele.Sauvegarde.Filtertxt {
+      + accept()
+    }
+  }
+  
+
+  Modele.Arbre +-down- Modele.Arbre.Noeud
+  Modele.Arbre.Noeud o.. Modele.Arbre.Noeud : droit, gauche
+  Modele.Arbre.Noeud o.. Modele.Espece 
+
+  Modele.Matrice o.. Modele.Espece
+  Modele.Matrice o.. Modele.Arbre
+
+  Modele.EspeceAncetre -up-|> Modele.Espece
+  Modele.EspeceVivante -up-|> Modele.Espece
+  Modele.Sauvegarde +-down- Modele.Sauvegarde.Filtertxt
+
+
+
+
+/'
+ a88888b.                     dP                     dP                            
+d8'   `88                     88                     88                            
+88        .d8888b. 88d888b. d8888P 88d888b. .d8888b. 88 .d8888b. dP    dP 88d888b. 
+88        88'  `88 88'  `88   88   88'  `88 88'  `88 88 88ooood8 88    88 88'  `88 
+Y8.   .88 88.  .88 88    88   88   88       88.  .88 88 88.  ... 88.  .88 88       
+ Y88888P' `88888P' dP    dP   dP   dP       `88888P' dP `88888P' `88888P' dP       
+'/
+
+namespace Controleur {
+  class Controleur.Controleur {
+    - banqueDonnees : LinkedList<EspeceVivante>
+    - especesChoisies : LinkedList<EspeceVivante>
+    + m : Matrice
+    + v : Vue
+    + afficher()
+    + ajouterNouvEspece()
+    + chargementDiverse()
+    + etapeSuivante()
+    + fichierExiste()
+    + initialiseMatrice()
+    + listeAjouter()
+    + listeEnlever()
+    + listeFichierCharg()
+    + recupTousLesNom()
+    + sauvegardeDiverse()
+  }
+}
+
+
+Controleur.Controleur o.. Modele.Matrice
+Controleur.Controleur o..o Vue.Vue 
+
+/'
+dP                                                  dP          
+88                                                  88          
+88        .d8888b. .d8888b. .d8888b. 88d888b. .d888b88 .d8888b. 
+88        88ooood8 88'  `88 88ooood8 88'  `88 88'  `88 88ooood8 
+88        88.  ... 88.  .88 88.  ... 88    88 88.  .88 88.  ... 
+88888888P `88888P' `8888P88 `88888P' dP    dP `88888P8 `88888P' 
+                        .88                                     
+                    d8888P                                      
+'/
+
+namespace Package_Legende {
+  class Package_Legende.A4 {
+    - attribut private
+    # attribut protected
+    - methode private()
+    # methode protected()
+    {static} + methode static public()
+  }
+}
+
+  
+Package_Legende.B1 -up-|> Package_Legende.A1 : B herite de A
+Package_Legende.A2 o.. Package_Legende.B2 : B agrège A
+Package_Legende.A3 +-down- Package_Legende.A3.B3 : B est interne à A
+
+
+
+
+
+
+right footer
+Les getteurs et setteurs ne sont pas affichés, pour améliorer la lisibilité. 
+endfooter
+
+@enduml
