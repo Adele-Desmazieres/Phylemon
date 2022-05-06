@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/AR1/AR1.iml" filepath="$PROJECT_DIR$/AR1/AR1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AR2/AR2.iml" filepath="$PROJECT_DIR$/AR2/AR2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/project-pooig-fusion.iml" filepath="$PROJECT_DIR$/.idea/project-pooig-fusion.iml" />
+    </modules>
+  </component>
+</project>
