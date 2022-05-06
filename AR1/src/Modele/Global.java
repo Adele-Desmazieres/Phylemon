@@ -108,7 +108,6 @@ public class Global {
         }
 
         //initialisation des autres cases de la matrice et calcul de leur score basé sur le principe d'optimalité (récursion)
-        //scoreOptimal(cases.length-1, cases[0].length-1);
         scoreOptimal();
         initialisationMonScore();
     }
@@ -119,9 +118,9 @@ public class Global {
                 String s1 = ((CaseSeq) cases[i][0]).getNuc();
                 String s2 = ((CaseSeq) cases[0][j]).getNuc();
                 int s=0;
-                if(s1.equals(s2)) s=this.matchScore; //si les deux nucleoties sont egaux s est le matchScore
+                if(s1.equals(s2)) s=this.matchScore; //si les deux nucleotides sont egaux s est le matchScore
                 else s=this.misMatchScore; //sinon s est egale au misMatchScore
-                //on garde le score maximal parmis les 3 possibilités
+                //on garde le score maximal parmi les 3 possibilités
                 int score = Math.max(Math.max(((CaseMatrice)cases[i-1][j-1]).getScore()+s, ((CaseMatrice)cases[i-1][j]).getScore()+this.gapScore), ((CaseMatrice)cases[i][j-1]).getScore()+this.gapScore);
                 cases[i][j] = new CaseMatrice(i, j, score);
             }
@@ -130,8 +129,6 @@ public class Global {
     
     //initialise l'entier correspondant à l'état de la caseMatrice en fonction de ses casesADN parentes sans prendre en compte le score global
     public void initialisationMonScore() {
-    	System.out.println("cases.length : "+cases.length);
-    	System.out.println("cases[0].length : "+cases[0].length);
     	for (int i=2;i<cases.length;i++) {
     		for (int j=2;j<cases[0].length;j++) {
     			CaseSeq[] monomere = this.chercheParent(cases[i][j]);
@@ -171,12 +168,13 @@ public class Global {
     
     //méthode utilisée dans la recherche du chemin optimal
     public void cheminOptimalRec(LinkedList<CaseMatrice> enCours, CaseMatrice c){
-    	CaseMatrice[] triangle=this.renvoieTriangle(c);//on récupère les 3 cases qui ont permis de calculer le score d'une case
+    	if (this.estVoisinAvec0(c) || (c.getX()==2 && c.getY()==2)){
+            this.chemin=this.copieList(enCours);//on copie la liste actuelle et on l'a met dans le chemin
+            return;
+        }
+        CaseMatrice[] triangle=this.renvoieTriangle(c);//on récupère les 3 cases qui ont permis de calculer le score d'une case
     	if(triangle==null) return ;//alors la case est "en bordure"
-    	if(c.getX()==2 && c.getY()==2) {//si la case est celle en haut à gauche
-    		this.chemin=this.copieList(enCours);//on copie la liste actuelle et on l'a met dans le chemin
-    		return;
-    	}
+
     	int val0=c.getValeur(), val1=c.getValeur(), val2=c.getValeur();// on récupère la valeur issue de l'alignement des deux nucléotides parents pour la case en paramètre de la fonction
     	if(this.estUnGap(c, triangle[0])) val0=this.gapScore;//si c'est un gap, on met à jour la valeur
     	if(this.estUnGap(c, triangle[1])) val1=this.gapScore;
@@ -268,5 +266,11 @@ public class Global {
     //permet d'initialiser la matrice de substitution
     public void setSubstitution() {
         this.matrice = null;
+    }
+
+    public boolean estVoisinAvec0(CaseMatrice c){
+        if(c.getX()==1 && c.getY()==2) return true;
+        if(c.getX()==2 && c.getY()==1) return true;
+        return false;
     }
 }

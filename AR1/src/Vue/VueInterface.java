@@ -15,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class VueInterface extends JFrame {
+    public static String csv_path;
     private JTextField s1;
     private JTextField s2;
     private Global global;
@@ -37,7 +38,7 @@ public class VueInterface extends JFrame {
 
         // création de la fenêtre
         this.setTitle("Alignement de séquence");
-        this.setSize(1000,800);
+        this.setSize(1500,1000);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setVisible(true);
 
@@ -51,7 +52,8 @@ public class VueInterface extends JFrame {
 
         // JPanel en haut à gauche qui contiendra les espaces pour écrire les séquences, faire les réglages de scores et les boutons
         JPanel echange = new JPanel();
-        echange.setLayout(new GridLayout(5, 1));
+        echange.setBackground(MyColors.fond);
+        echange.setLayout(new GridLayout(5, 1, 100, 10));
 
         //Panel de la séquence 1
         JPanel seq1 = new JPanel();
@@ -59,6 +61,7 @@ public class VueInterface extends JFrame {
         seq1.add(t1);
         s1 = new JTextField(this.global.getSeq1());
         s1.setColumns(30);
+        seq1.setBackground(MyColors.fond);
 
         seq1.add(s1);
         echange.add(seq1);
@@ -70,9 +73,10 @@ public class VueInterface extends JFrame {
         s2 = new JTextField( this.global.getSeq2(),30);
         seq2.add(s2);
         echange.add(seq2);
+        seq2.setBackground(MyColors.fond);
 
 
-        // Panel de l'affichage du texte
+        // Panel de l'affichage du texte pour les JSpinner
         JPanel score = new JPanel();
         score.setLayout(new GridLayout(1,3));
         JLabel sc1 = new JLabel("Match Score");
@@ -82,12 +86,14 @@ public class VueInterface extends JFrame {
         score.add(sc2);
         score.add(sc3);
         echange.add(score);
+        score.setBackground(MyColors.fond);
 
         // Panel des JSpinner
         JPanel spinner = new JPanel();
         spinner.setLayout(new GridLayout(1,3));
+        spinner.setBackground(MyColors.fond);
 
-        // IL FAUDRA PEUT ETRE METTRE LES JSPINNER EN ATTRIBUT DE LA FENÊTRE POUR RECUPERER FACILEMENT LES VALEURS A VOIR
+
         SpinnerModel mS = new SpinnerNumberModel(1,-5,5,1);
         JSpinner matchS = new JSpinner(mS);
         matchS.setSize(300,300);
@@ -111,6 +117,11 @@ public class VueInterface extends JFrame {
             public void stateChanged(ChangeEvent e) {
                 Controleur ctrl = new Controleur(VueInterface.this.global, VueInterface.this);
                 ctrl.miseAJourScore(1,(Integer)matchS.getValue());
+                if(VueMatrice.isComputeAlignement){
+                    if (VueInterface.this.score.getComponentCount()!=0)ctrl.effacerChemin(false);//retire l'ancien panneau du score s'il existe
+                    ctrl.calculerChemin();
+                    ctrl.affichageSeq_Score();
+                }
             }
         });
 
@@ -119,6 +130,11 @@ public class VueInterface extends JFrame {
             public void stateChanged(ChangeEvent e) {
                 Controleur ctrl = new Controleur(VueInterface.this.global, VueInterface.this);
                 ctrl.miseAJourScore(2,(Integer)mismatchS.getValue());
+                if(VueMatrice.isComputeAlignement){
+                    if (VueInterface.this.score.getComponentCount()!=0)ctrl.effacerChemin(false);//retire l'ancien panneau du score s'il existe
+                    ctrl.calculerChemin();
+                    ctrl.affichageSeq_Score();
+                }
             }
         });
 
@@ -127,6 +143,11 @@ public class VueInterface extends JFrame {
             public void stateChanged(ChangeEvent e) {
                 Controleur ctrl = new Controleur(VueInterface.this.global, VueInterface.this);
                 ctrl.miseAJourScore(3,(Integer)gapS.getValue());
+                if(VueMatrice.isComputeAlignement){
+                    if (VueInterface.this.score.getComponentCount()!=0)ctrl.effacerChemin(false);//retire l'ancien panneau du score s'il existe
+                    ctrl.calculerChemin();
+                    ctrl.affichageSeq_Score();
+                }
             }
         });
 
@@ -142,6 +163,7 @@ public class VueInterface extends JFrame {
         boutons.add(clear);
         boutons.add(custom);
         echange.add(boutons);
+        boutons.setBackground(MyColors.fond);
         
      // JPanel en haut à droite où on verra l'alignement de séquence et le score
         //remplacé par le JPanel score qui est un attribut
@@ -159,6 +181,7 @@ public class VueInterface extends JFrame {
                 controleur.calculerChemin();
                 controleur.affichageSeq_Score();
                 VueMatrice.isComputeAlignement=true;
+                VueMatrice.isCustomPath=false;
             }
         });
 
@@ -171,6 +194,7 @@ public class VueInterface extends JFrame {
                 controleur.miseAJourSeq(false,s2.getText());
                 controleur.effacerChemin(false);
                 VueMatrice.isComputeAlignement=false;
+                VueMatrice.isCustomPath=false;
             }
         });
         
@@ -183,10 +207,12 @@ public class VueInterface extends JFrame {
                 VueMatrice.premiereCase=null;
                 controleur.effacerChemin(true);
                 VueInterface.this.score.add(new JLabel("En cours d'alignement"));
+                VueMatrice.isCustomPath=true;
+                VueMatrice.isComputeAlignement=false;
             }
         });
 
-        
+        this.score.setBackground(MyColors.fond);
         haut.add(echange);
         haut.add(this.score);
 
@@ -202,8 +228,9 @@ public class VueInterface extends JFrame {
         JMenuItem ADNProt = new JMenuItem("Protéines");
         mode.add(ADNProt);
 
+        // action du bouton de changement de mode
         ADNProt.addActionListener((event) -> {
-            if(this.isADN) {
+            if(this.isADN) { // si au moment de l'action, c'est en mode ADN
                 ADNProt.setText("ADN");
                 this.global = new GlobalProt();
 
@@ -226,7 +253,7 @@ public class VueInterface extends JFrame {
                 this.revalidate();
                 this.repaint();
             }
-            else {
+            else { // si au moment de l'action, c'est en mode Protéines
                 ADNProt.setText("Protéines");
                 this.global = new Global();
                 //this.conteneur.remove(this.matrice);
@@ -249,6 +276,7 @@ public class VueInterface extends JFrame {
                 this.revalidate();
                 this.repaint();
             }
+            this.score.removeAll();
             this.isADN = !this.isADN;
         });
     }
@@ -257,6 +285,7 @@ public class VueInterface extends JFrame {
         // JPanel du bas qui contiendra la matrice
         conteneur.setLayout(new GridLayout(1,3));
         JPanel matrice = new JPanel();
+        matrice.setBackground(MyColors.fond);
         matrice.setSize(500,500);
         matrice.setLayout(new GridLayout(global.getCases().length, global.getCases()[0].length));
         for (int i = 0; i < global.getCases().length; i++) {
@@ -312,8 +341,10 @@ public class VueInterface extends JFrame {
     
     public boolean getIsADN() {return this.isADN;}
 
-    // pour faire les tests de l'affichage
+    // pout lancer l'affichage
     public static void main(String[] args) {
+        if (args[0].length()>=1) csv_path = args[0];
+        else csv_path = "../Modele/matriceProt.csv";
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {

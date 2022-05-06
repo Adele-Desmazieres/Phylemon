@@ -15,8 +15,10 @@ public class VueMatrice extends JPanel implements MouseInputListener {
     protected VueInterface vue;
     protected static boolean explicationsON=false;
 	protected static boolean isComputeAlignement=false;
+	protected static boolean isCustomPath=false;
 
     public VueMatrice(Case c, VueInterface v){
+		this.setBackground(MyColors.fond);
         this.caseM = c;
         this.vue=v;
         this.setEnabled(false);//on désactive la case
@@ -41,7 +43,7 @@ public class VueMatrice extends JPanel implements MouseInputListener {
     			VueMatrice.this.vue.getGlobal().retireDerniereCase();//on retire la dernière case ajoutée
     			if(this.caseM.getY()>1 && this.caseM.getX()>1)this.setBackground(Color.white);//on met la couleur de fond à white
 				else this.setBackground(MyColors.rose);
-    			VueMatrice.this.vue.miseAJourCustom();
+				VueMatrice.this.vue.miseAJourCustom();
 				this.revalidate();
 				this.repaint();
     		}
@@ -50,11 +52,11 @@ public class VueMatrice extends JPanel implements MouseInputListener {
 				((CaseMatrice)caseM).setColore(true);//on met l'attribut colore à true
 				VueMatrice.this.vue.getGlobal().ajoutCaseSurChemin((CaseMatrice)caseM);//on ajoute la case dans le chemin
     			this.setBackground(MyColors.bleu);
-    			VueMatrice.this.vue.miseAJourCustom();
+				VueMatrice.this.vue.miseAJourCustom();
 				this.revalidate();
 				this.repaint();
     		}
-    		
+
     	}
     }
 
@@ -75,12 +77,13 @@ public class VueMatrice extends JPanel implements MouseInputListener {
     		explicationsON=true;
     		//si la case est coloriée, alors on affiche son calcul
     		//on la colore momentanément
-    		this.setBackground(MyColors.jaune);//en bleu pour l'instant
+    		this.setBackground(MyColors.jaune);
     		
     		Controleur controleur = new Controleur(vue.getGlobal(),vue);
    		
    			JPanel explications=new JPanel();
    			explications.setLayout(new GridLayout(2,2,50,10));
+			explications.setBackground(MyColors.fond);
     			
    			CaseMatrice[] triangle= vue.getGlobal().renvoieTriangle(caseM);
     			/*
@@ -89,34 +92,37 @@ public class VueMatrice extends JPanel implements MouseInputListener {
     			 * triangle[2] -> case latérale
     			 */
    			//Explications case diagonale
-    		JLabel titre1=new JLabel("Score from Diagonal cell");
+    		JLabel titre1=new JLabel("Score from Diagonal cell", SwingConstants.CENTER);
    			JPanel case1=new JPanel();
-    		
+
+			case1.setBackground(MyColors.jaune);
+
     		JLabel j1=controleur.explicationsCalcul(triangle[0], (CaseMatrice)caseM);
-			//String s1=controleur.explicationsCalculBis(triangle[0], (CaseMatrice)caseM);
-    		
+    		j1.setHorizontalAlignment(SwingConstants.CENTER);
     		case1.setLayout(new GridLayout(2,1));
    			case1.add(titre1);
    			case1.add(j1);
    			
    			//Explications case latérale
-   			JLabel titre2=new JLabel("Score from Side cell");
+   			JLabel titre2=new JLabel("Score from Side cell", SwingConstants.CENTER);
    			JPanel case2=new JPanel();
+
+			case2.setBackground(MyColors.jaune);
    			
    			JLabel j2=controleur.explicationsCalcul(triangle[2], (CaseMatrice)caseM);
-			//String s2=controleur.explicationsCalculBis(triangle[2], (CaseMatrice)caseM);
-    		
+    		j2.setHorizontalAlignment(SwingConstants.CENTER);
    			case2.setLayout(new GridLayout(2,1));
    			case2.add(titre2);
    			case2.add(j2);
    			
    			//Explications case supérieure
-   			JLabel titre3=new JLabel("Score from Upper cell");
+   			JLabel titre3=new JLabel("Score from Upper cell", SwingConstants.CENTER);
    			JPanel case3=new JPanel();
-   			
+
+			 case3.setBackground(MyColors.jaune);
+
    			JLabel j3=controleur.explicationsCalcul(triangle[1], (CaseMatrice)caseM);
-			//String s3=controleur.explicationsCalculBis(triangle[1], (CaseMatrice)caseM);
-    		
+			j3.setHorizontalAlignment(SwingConstants.CENTER);
    			case3.setLayout(new GridLayout(2,1));
    			case3.add(titre3);
    			case3.add(j3);
@@ -127,21 +133,24 @@ public class VueMatrice extends JPanel implements MouseInputListener {
    			JPanel case4=new JPanel();
    			case4.add(titre4);
 
-			case1.setBorder(BorderFactory.createLineBorder(MyColors.jaune,2));
+			case4.setBackground(MyColors.jaune);
+
+			case1.setBorder(BorderFactory.createLineBorder(MyColors.jauneBordure,2));
 			case1.setSize(vue.getScore().getWidth()/2,vue.getScore().getHeight()/2);
-			case2.setBorder(BorderFactory.createLineBorder(MyColors.jaune,2));
+			case2.setBorder(BorderFactory.createLineBorder(MyColors.jauneBordure,2));
 			case2.setSize(vue.getScore().getWidth()/2,vue.getScore().getHeight()/2);
-			case3.setBorder(BorderFactory.createLineBorder(MyColors.jaune,2));
+			case3.setBorder(BorderFactory.createLineBorder(MyColors.jauneBordure,2));
 			case3.setSize(vue.getScore().getWidth()/2,vue.getScore().getHeight()/2);
-			case4.setBorder(BorderFactory.createLineBorder(MyColors.jaune,2));
+			case4.setBorder(BorderFactory.createLineBorder(MyColors.jauneBordure,2));
 			case4.setSize(vue.getScore().getWidth()/2,vue.getScore().getHeight()/2);
    			explications.add(case1);
    			explications.add(case3);
    			explications.add(case2);
    			explications.add(case4);
-   			
-			//vue.getScore().getComponentCount()>1 || (!VueMatrice.isComputeAlignement && vue.getScore().getComponentCount()==1)
+
+
    			if(vue.getScore().getComponentCount()>1) {
+				   System.out.println("ici");
 				vue.getScore().remove(vue.getScore().getComponentCount() - 1);// on retire le dernier composant ajouté
 				this.revalidate();
 				this.repaint();

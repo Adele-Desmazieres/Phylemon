@@ -23,7 +23,6 @@ public class Controleur {
     public void calculerChemin(){
     	this.effacerChemin(false);
         this.global.cheminOptimal();
-		System.out.println(this.global.getChemin().size());
         Component[] components = this.vue.getMatrice().getComponents();
         for (int i = 0; i < components.length; i++) {
             Case c = ((VueMatrice)components[i]).getCaseM();
@@ -80,6 +79,7 @@ public class Controleur {
             case 3 : this.global.setGapScore(val);break;
         }
         this.global.miseAJourMatrice(); //mettre à jour nouvelle matrice
+		this.global.cheminOptimal();
         this.vue.affichageMatrice();
     }
     
@@ -87,6 +87,8 @@ public class Controleur {
     public void affichageSeq_Score() {
     	JPanel affichage=this.vue.getScore();
 		JPanel alignement=new JPanel();
+		affichage.setBackground(MyColors.fond);
+		alignement.setBackground(MyColors.fond);
 		//alignement.setLayout(new GridLayout(3,1));
     	CaseMatrice[] chemin=this.global.cheminTableau(this.global.getChemin());
     	String s1=(this.global.getSeq1()).charAt(0)+"\t";//la séquence verticale
@@ -107,15 +109,15 @@ public class Controleur {
     	//on crée des JLabel qui vont contenir les séquences et le score
     	JLabel seq=new JLabel();
     	seq.setText(s1);
-		seq.setFont(new Font("Arial",Font.PLAIN,20));
+		seq.setFont(new Font(Font.MONOSPACED,Font.PLAIN,20));
     	
     	JLabel seq2=new JLabel();
     	seq2.setText(s2);
-		seq2.setFont(new Font("Arial",Font.PLAIN,20));
+		seq2.setFont(new Font(Font.MONOSPACED,Font.PLAIN,20));
     	
     	JLabel seq3=new JLabel();
     	seq3.setText("Score= "+this.global.getScore());
-		seq3.setFont(new Font("Arial",Font.PLAIN,20));
+		seq3.setFont(new Font(Font.MONOSPACED,Font.PLAIN,20));
     	//on les ajoute au JPanel score de la VueInitiale
     	
     	JPanel petit_panneau=new JPanel();
@@ -124,6 +126,7 @@ public class Controleur {
     	petit_panneau.add(seq2);
     	petit_panneau.add(seq);
     	petit_panneau.add(seq3);
+		petit_panneau.setBackground(MyColors.fond);
     	
     	alignement.add(petit_panneau);
     	affichage.add(alignement);
@@ -152,6 +155,8 @@ public class Controleur {
     	int score=0;
     	JPanel affichage=this.vue.getScore();
 		JPanel alignement=new JPanel();
+		affichage.setBackground(MyColors.fond);
+		alignement.setBackground(MyColors.fond);
     	alignement.setLayout(new GridLayout(3,1));
     	CaseMatrice[] chemin=this.cheminCustom();
     	String s1="";//la séquence verticale
@@ -183,17 +188,18 @@ public class Controleur {
     	//on crée des JLabel qui vont contenir les séquences et le score
     	JLabel seq=new JLabel();
     	seq.setText(s1);
-		seq.setFont(new Font("Arial",Font.PLAIN,20));
+		seq.setFont(new Font(Font.MONOSPACED,Font.PLAIN,20));
     	
     	JLabel seq2=new JLabel();
     	seq2.setText(s2);
-		seq2.setFont(new Font("Arial",Font.PLAIN,20));
+		seq2.setFont(new Font(Font.MONOSPACED,Font.PLAIN,20));
     	
     	JLabel seq3=new JLabel();
     	seq3.setText("Score= "+score);
-		seq3.setFont(new Font("Arial",Font.PLAIN,20));
+		seq3.setFont(new Font(Font.MONOSPACED,Font.PLAIN,20));
     	//on les ajoute au JPanel score de la VueInitiale
     	JPanel petit_panneau=new JPanel();
+		petit_panneau.setBackground(MyColors.fond);
     	GridLayout grille=new GridLayout(3,1);
     	petit_panneau.setLayout(grille);
     	petit_panneau.add(seq2);
@@ -210,8 +216,7 @@ public class Controleur {
 		JLabel j1;
 		String s1="";
 		int i1=0;
-			
-			//Explications case diagonale
+
 		if(vue.getGlobal().estUnGap(caseM, triangle)) {
 			i1=triangle.getScore()+vue.getGlobal().getGapScore();
 			s1=triangle.getScore()+" + "+vue.getGlobal().getGapScore()+" (The Gap score) = "+i1;
@@ -230,27 +235,5 @@ public class Controleur {
 
 		return j1;
     }
-
-	/*// à supprimer après avoir vérifié qu'il n'était pas utile
-	public String explicationsCalculBis(CaseMatrice triangle, CaseMatrice caseM){
-		String s1="";
-		int i1=0;
-
-		//Explications case diagonale
-		if(vue.getGlobal().estUnGap(caseM, triangle)) {
-			i1=triangle.getScore()+vue.getGlobal().getGapScore();
-			s1=triangle.getScore()+" + "+vue.getGlobal().getGapScore()+" (The Gap score) = "+i1;
-		}
-		else if (((CaseMatrice)caseM).getValeur()==vue.getGlobal().getMisMatchScore()) {
-			i1=triangle.getScore()+vue.getGlobal().getMisMatchScore();
-			s1=triangle.getScore()+" + "+vue.getGlobal().getMisMatchScore()+" (Due to a mismatch) = "+i1;
-		}
-		else {
-			i1=triangle.getScore()+vue.getGlobal().getMatchScore();
-			s1=triangle.getScore()+" + "+vue.getGlobal().getMatchScore()+" (Due to a match) = "+i1;
-		}
-
-		return s1;
-	}*/
     
 }

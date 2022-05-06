@@ -1,5 +1,7 @@
 package Modele;
 
+import Vue.VueInterface;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -15,7 +17,8 @@ public class GlobalProt extends Global{
     //@Override
     //permet d'initialiser la matrice de substitution
     public void setSubstitution() {
-        String file = "src/Modele/matriceProt.csv";
+        System.out.println(System.getProperty("user.dir"));
+        String file = VueInterface.csv_path;
         try(BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line = br.readLine();
             while(line != null) {
@@ -86,6 +89,7 @@ public class GlobalProt extends Global{
 
 
     @Override
+    //initialise l'entier correspondant à l'état de la caseMatrice en fonction de ses cases parentes sans prendre en compte le score global
     public void initialisationMonScore() {
         for(int i=2; i<cases.length; i++){
             for(int j=2; j<cases[0].length; j++){
