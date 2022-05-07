@@ -68,6 +68,7 @@ public class Controleur {
     //getters et setters
     public List<Arbre> getArbres() { return m.getArbres(); }
     public double[][] getTableau() { return m.getTableau(); }
+    public Gl
     public List<Espece> getEspecesTableau() { return m.getEspecesTableau(); }
     public double getDistMax() { return m.getDistMax(); }
     public double getDistMin() { return m.getDistMin(); }

@@ -42,7 +42,7 @@ public class Vue extends JFrame{
 
         this.menuBar = new JMenuBar();
 
-        JMenuItem accueilItem = new JMenuItem("Acceuil");
+        JMenuItem accueilItem = new JMenuItem("Accueil");
         accueilItem.setMaximumSize(new Dimension(60,25));
         accueilItem.addActionListener(event -> this.changePanel(accueil));
 

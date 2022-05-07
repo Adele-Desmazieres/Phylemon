@@ -1,5 +1,8 @@
 package AR2.Vue;
 
+import AR1.Modele.*;
+import AR1.Vue.*;
+import AR1.Controleur.*;
 import AR2.Controleur.Controleur;
 import AR2.Modele.Arbre;
 import AR2.Modele.Espece;
@@ -22,6 +25,24 @@ public class CreaArbre extends JPanel {
     private JButton suivante = new JButton("Etape suivante");
     private JPanel indiqFusion = new JPanel();
     private JPanel echelle = new JPanel();
+
+    private class MyJLabel extends JLabel implements MouseInputListener{
+        public int i;
+        public int j;
+
+        public MyJLabel(String s,int i, int j,int pos){
+            super(s,pos);
+            this.i=i;
+            this.j=j;
+        }
+
+        @Override
+        public mouseClicked(MouseEvent e){
+            VueInterce vue = new VueInterface();
+
+        }
+
+    }
 
     protected CreaArbre(Controleur controleur) {
         this.controleur = controleur;
@@ -168,7 +189,10 @@ public class CreaArbre extends JPanel {
     // Cette méthode rajoute (l'affichage graphique de) la matrice dans le JPanel Principale (this)
     private void affMatrice () {
         //System.out.println("CreaArbre : max = " + controleur.getDistMax());
-        
+
+
+
+
         this.matrice_pan.removeAll();
         GridLayout gridy = new GridLayout(controleur.getTableau().length+2,controleur.getTableau().length+2,10,10);
         this.matrice_pan.setLayout(gridy);
@@ -180,11 +204,23 @@ public class CreaArbre extends JPanel {
         }
         this.matrice_pan.add(new JLabel("", SwingConstants.CENTER));
 
+        //Ajout de la fusion
+        VueInterface vue=new VueInterface();
+
         // Initialisation des autres lignes du JPanel
         for (int i = 0; i < controleur.getEspecesTableau().size(); i++) {
             this.matrice_pan.add(new JLabel(controleur.getEspecesTableau().get(i).getNom(), SwingConstants.RIGHT));
             for (int j=0; j < controleur.getTableau().length; j++) {
-                JLabel caseVal = new JLabel(controleur.getTableau()[i][j]+"", SwingConstants.CENTER);
+                MyJLabel caseVal = new MyJLabel(controleur.getTableau()[i][j]+"",i, j, SwingConstants.CENTER);
+
+                caseVal.addMouseListener(New MouseAdapter() {
+                    //@Override
+                    //public void mouseClicked(MouseEvent e) {
+                        //mettre l'affichage graphique
+                        setGlobal(this.controleur.getGlobals(),vue);
+
+                    //}
+                })
                 caseVal.setOpaque(true);
                 // Initialisation de la Couleur de fond en fonction de sa valeur ; gradient(double d, double max)
                 caseVal.setBackground(gradient(controleur.getTableau()[i][j], controleur.getDistMax(), controleur.getDistMin()));

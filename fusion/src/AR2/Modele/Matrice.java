@@ -39,6 +39,7 @@ public class Matrice {
 	public List<Espece> getEspecesTableau() { return especesTableau; }
 	public double getDistMax() { return this.distMax; }
 	public double getDistMin() { return this.distMin; }
+	public Global[][] getGlobals { return this.globals;}
 
 	public void remplirGlobals() {
 		int minScore = Integer.MAX_VALUE, maxScore = Integer.MIN_VALUE;

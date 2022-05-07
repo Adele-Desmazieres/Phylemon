@@ -32,8 +32,13 @@ public class Accueil extends JPanel{
         this.add(imageJP,BorderLayout.CENTER);
 
         // Création des auteurs
-        JLabel createurs = new JLabel("Auteurs : Alexandre BEWA, Benoit DESPLACES, Adèle DESMAZIERES, Joachim EKOKA, Ewen GLASZIOU");
-        this.add(createurs,BorderLayout.SOUTH);
+        JPanel createur0 = new JPanel();
+        JLabel createurs = new JLabel("Auteurs : Dounia BENYKHLAF, Alexandre BEWA, Linéa DESARBRE, Benoit DESPLACES, Adèle DESMAZIERES,");
+        JLabel createurs2 = new JLabel("Joachim EKOKA, Ewen GLASZIOU, Louise LAM, Elvire TRAMA");
+        createur0.add(createurs, BorderLayout.NORTH);
+        createur0.add(createurs2, BorderLayout.SOUTH);
+        this.add(createur0,BorderLayout.SOUTH);
+        //this.add(createurs2, BorderLayout.SOUTH);
 
         this.add(new JPanel(),BorderLayout.WEST);
         this.add(new JPanel(), EAST);

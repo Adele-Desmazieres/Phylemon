@@ -363,4 +363,10 @@ public class VueInterface extends JFrame {
     	this.score.removeAll();
     	controleur.affichageSeq_Score_custom();
     }
+
+    //met à jour le Global d'une VueInterface
+    public static void setGlobal(Global g, VueInterface vue){
+        vue.global=g;
+        vue.setScore();
+    }
 }
