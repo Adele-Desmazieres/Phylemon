@@ -42,7 +42,7 @@ public class CreaArbre extends JPanel {
 
         public void mouseClicked(MouseEvent e){
             VueInterface vue = new VueInterface();
-            setGlobal(CreaArbre.this.controleur.getGlobal()[MyJLabel.this.i][MyJLabel.this.j], vue);
+            vue.setGlobal(CreaArbre.this.controleur.getGlobal()[MyJLabel.this.i][MyJLabel.this.j]);
             //on veut une fenêtre
             //dessus on lui ajoute 2 JPanels
             //1 alignement dans la matrice
@@ -54,7 +54,33 @@ public class CreaArbre extends JPanel {
             fenetre.add(score);
             fenetre.add(matrice);
             JDialog dia=new JDialog(fenetre,"Alignement");
+        }
 
+        @Override
+        public void mousePressed(MouseEvent mouseEvent) {
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent mouseEvent) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent mouseEvent) {
+        }
+
+        @Override
+        public void mouseExited(MouseEvent mouseEvent) {
+        }
+
+        @Override
+        public void mouseDragged(MouseEvent mouseEvent) {
+
+        }
+
+        @Override
+        public void mouseMoved(MouseEvent mouseEvent) {
 
         }
 
