@@ -26,7 +26,6 @@ public class VueInterface extends JFrame {
     private boolean matriceSub;
 
     public VueInterface(){
-        //initialisation de global
         this.isADN = true;
         this.matriceSub = false;
 
@@ -117,7 +116,7 @@ public class VueInterface extends JFrame {
             public void stateChanged(ChangeEvent e) {
                 Controleur ctrl = new Controleur(VueInterface.this.global, VueInterface.this);
                 ctrl.miseAJourScore(1,(Integer)matchS.getValue());
-                if(VueMatrice.isComputeAlignement){
+                if(VueMatrice.isComputeAlignement){//met à jour l'alignement
                     if (VueInterface.this.score.getComponentCount()!=0)ctrl.effacerChemin(false);//retire l'ancien panneau du score s'il existe
                     ctrl.calculerChemin();
                     ctrl.affichageSeq_Score();
@@ -130,7 +129,7 @@ public class VueInterface extends JFrame {
             public void stateChanged(ChangeEvent e) {
                 Controleur ctrl = new Controleur(VueInterface.this.global, VueInterface.this);
                 ctrl.miseAJourScore(2,(Integer)mismatchS.getValue());
-                if(VueMatrice.isComputeAlignement){
+                if(VueMatrice.isComputeAlignement){//met à jour l'alignement
                     if (VueInterface.this.score.getComponentCount()!=0)ctrl.effacerChemin(false);//retire l'ancien panneau du score s'il existe
                     ctrl.calculerChemin();
                     ctrl.affichageSeq_Score();
@@ -143,7 +142,7 @@ public class VueInterface extends JFrame {
             public void stateChanged(ChangeEvent e) {
                 Controleur ctrl = new Controleur(VueInterface.this.global, VueInterface.this);
                 ctrl.miseAJourScore(3,(Integer)gapS.getValue());
-                if(VueMatrice.isComputeAlignement){
+                if(VueMatrice.isComputeAlignement){//met à jour l'alignement
                     if (VueInterface.this.score.getComponentCount()!=0)ctrl.effacerChemin(false);//retire l'ancien panneau du score s'il existe
                     ctrl.calculerChemin();
                     ctrl.affichageSeq_Score();
@@ -164,11 +163,7 @@ public class VueInterface extends JFrame {
         boutons.add(custom);
         echange.add(boutons);
         boutons.setBackground(MyColors.fond);
-        
-     // JPanel en haut à droite où on verra l'alignement de séquence et le score
-        //remplacé par le JPanel score qui est un attribut
-        //JPanel sequences = new JPanel();
-        //sequences.setBackground(Color.green);
+
 
         //calcule le chemin et l'affiche
         COA.addActionListener(new ActionListener() {
@@ -197,9 +192,10 @@ public class VueInterface extends JFrame {
                 VueMatrice.isCustomPath=false;
             }
         });
-        
+
+        //active le mode custom
         custom.addActionListener(new ActionListener() {
-        	@Override
+            @Override
             public void actionPerformed(ActionEvent e) {
                 Controleur controleur = new Controleur(global, VueInterface.this);
                 controleur.miseAJourSeq(true,s1.getText());
@@ -256,7 +252,6 @@ public class VueInterface extends JFrame {
             else { // si au moment de l'action, c'est en mode Protéines
                 ADNProt.setText("Protéines");
                 this.global = new Global();
-                //this.conteneur.remove(this.matrice);
 
                 seq1.remove(s1);
                 seq2.remove(s2);

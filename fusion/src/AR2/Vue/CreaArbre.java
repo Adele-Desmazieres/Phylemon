@@ -246,8 +246,6 @@ public class CreaArbre extends JPanel {
         }
         this.matrice_pan.add(new JLabel("", SwingConstants.CENTER));
 
-        //Ajout de la fusion
-        VueInterface vue=new VueInterface();
         // Initialisation des autres lignes du JPanel
         for (int i = 0; i < controleur.getEspecesTableau().size(); i++) {
             this.matrice_pan.add(new JLabel(controleur.getEspecesTableau().get(i).getNom(), SwingConstants.RIGHT));
