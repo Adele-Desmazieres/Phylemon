@@ -2,6 +2,8 @@ package AR2.Controleur;
 
 import AR2.Modele.*;
 import AR2.Vue.*;
+import AR1.Modele.*;
+import AR1.Vue.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -67,8 +69,8 @@ public class Controleur {
     
     //getters et setters
     public List<Arbre> getArbres() { return m.getArbres(); }
-    public double[][] getTableau() { return m.getTableau(); }
-    public Gl
+    public double[][] getTableau() { return m.getTableau();}
+    public Global[][] getGlobal() {return  m.getGlobals();}
     public List<Espece> getEspecesTableau() { return m.getEspecesTableau(); }
     public double getDistMax() { return m.getDistMax(); }
     public double getDistMin() { return m.getDistMin(); }

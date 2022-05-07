@@ -12,6 +12,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import javax.swing.event.MouseInputListener;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 import static java.awt.BorderLayout.EAST;
@@ -34,11 +36,25 @@ public class CreaArbre extends JPanel {
             super(s,pos);
             this.i=i;
             this.j=j;
+            this.addMouseListener(this);
         }
 
-        @Override
-        public mouseClicked(MouseEvent e){
-            VueInterce vue = new VueInterface();
+
+        public void mouseClicked(MouseEvent e){
+            VueInterface vue = new VueInterface();
+            setGlobal(CreaArbre.this.controleur.getGlobal()[MyJLabel.this.i][MyJLabel.this.j], vue);
+            //on veut une fenêtre
+            //dessus on lui ajoute 2 JPanels
+            //1 alignement dans la matrice
+            //2 alignement réel des deux string
+            //JDialog dia=new JDialog(vue,"Alignement");
+            JPanel score=vue.getScore();
+            JPanel matrice=vue.getMatrice();
+            JFrame fenetre=new JFrame();
+            fenetre.add(score);
+            fenetre.add(matrice);
+            JDialog dia=new JDialog(fenetre,"Alignement");
+
 
         }
 
@@ -206,21 +222,12 @@ public class CreaArbre extends JPanel {
 
         //Ajout de la fusion
         VueInterface vue=new VueInterface();
-
         // Initialisation des autres lignes du JPanel
         for (int i = 0; i < controleur.getEspecesTableau().size(); i++) {
             this.matrice_pan.add(new JLabel(controleur.getEspecesTableau().get(i).getNom(), SwingConstants.RIGHT));
             for (int j=0; j < controleur.getTableau().length; j++) {
                 MyJLabel caseVal = new MyJLabel(controleur.getTableau()[i][j]+"",i, j, SwingConstants.CENTER);
 
-                caseVal.addMouseListener(New MouseAdapter() {
-                    //@Override
-                    //public void mouseClicked(MouseEvent e) {
-                        //mettre l'affichage graphique
-                        setGlobal(this.controleur.getGlobals(),vue);
-
-                    //}
-                })
                 caseVal.setOpaque(true);
                 // Initialisation de la Couleur de fond en fonction de sa valeur ; gradient(double d, double max)
                 caseVal.setBackground(gradient(controleur.getTableau()[i][j], controleur.getDistMax(), controleur.getDistMin()));
