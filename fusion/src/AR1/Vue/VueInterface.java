@@ -365,8 +365,8 @@ public class VueInterface extends JFrame {
     }
 
     //met à jour le Global d'une VueInterface
-    public static void setGlobal(Global g, VueInterface vue){
-        vue.global=g;
-        vue.setScore();
+    public void setGlobal(Global g){
+        this.global=g;
+        this.setScore();
     }
 }
