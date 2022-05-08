@@ -148,7 +148,7 @@ public class CreaEspeces extends JPanel {
     // Cette méthode vérifie que les informations essentielles ont bien été écrite et qu'elles sont corrects.
     private void profilComplet(String nom, String genome) throws IllegalArgumentException {
         if (nom.equals("") || genome.equals("")) throw new IllegalArgumentException("Veuillez remplir le champ.");
-        AR1.Modele.Global.verifADN(genome);
+        Global.verifADN(genome);
     }
     // Cette méthode prend un paramètre un String, elle renvoie true ssi c'est un nombre, false sinon.
     private boolean estNombre(String genome) {
