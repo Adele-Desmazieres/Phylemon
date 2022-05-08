@@ -25,7 +25,7 @@ cd fusion/src
 
 3. Compiler le projet à l'aide de la commande :
 ```
-javac AR1/*/*.java AR2/Launcher.java
+javac */*/*.java
 ```
 
 4. Exécuter le projet à l'aide de la commande :
