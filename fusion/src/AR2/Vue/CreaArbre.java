@@ -43,17 +43,7 @@ public class CreaArbre extends JPanel {
         public void mouseClicked(MouseEvent e){
             VueInterface vue = new VueInterface();
             vue.setGlobal(CreaArbre.this.controleur.getGlobal()[MyJLabel.this.i][MyJLabel.this.j]);
-            //on veut une fenêtre
-            //dessus on lui ajoute 2 JPanels
-            //1 alignement dans la matrice
-            //2 alignement réel des deux string
-            //JDialog dia=new JDialog(vue,"Alignement");
-            JPanel score=vue.getScore();
-            JPanel matrice=vue.getMatrice();
-            JFrame fenetre=new JFrame();
-            fenetre.add(score);
-            fenetre.add(matrice);
-            JDialog dia=new JDialog(fenetre,"Alignement");
+            JDialog dia=new JDialog(vue,"Alignement");
         }
 
         @Override
@@ -230,11 +220,6 @@ public class CreaArbre extends JPanel {
     }
     // Cette méthode rajoute (l'affichage graphique de) la matrice dans le JPanel Principale (this)
     private void affMatrice () {
-        //System.out.println("CreaArbre : max = " + controleur.getDistMax());
-
-
-
-
         this.matrice_pan.removeAll();
         GridLayout gridy = new GridLayout(controleur.getTableau().length+2,controleur.getTableau().length+2,10,10);
         this.matrice_pan.setLayout(gridy);
@@ -246,8 +231,6 @@ public class CreaArbre extends JPanel {
         }
         this.matrice_pan.add(new JLabel("", SwingConstants.CENTER));
 
-        //Ajout de la fusion
-        VueInterface vue=new VueInterface();
         // Initialisation des autres lignes du JPanel
         for (int i = 0; i < controleur.getEspecesTableau().size(); i++) {
             this.matrice_pan.add(new JLabel(controleur.getEspecesTableau().get(i).getNom(), SwingConstants.RIGHT));

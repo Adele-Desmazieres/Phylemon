@@ -22,7 +22,7 @@ public class Vue extends JFrame{
 
     public Vue(Controleur c) {
         controleur = c;
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(800,700);
         this.setMinimumSize(new Dimension(600,500));
         this.setTitle("Phylemon");

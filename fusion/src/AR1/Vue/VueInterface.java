@@ -38,8 +38,7 @@ public class VueInterface extends JFrame {
 
         // création de la fenêtre
         this.setTitle("Alignement de séquence");
-        this.setSize(1500,1000);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setSize(800,700);
         this.setVisible(true);
 
         this.getContentPane().setLayout(new GridLayout(2,1));
@@ -79,15 +78,16 @@ public class VueInterface extends JFrame {
         // Panel de l'affichage du texte pour les JSpinner
         JPanel score = new JPanel();
         score.setLayout(new GridLayout(1,3));
-        JLabel sc1 = new JLabel("Match Score");
+        /*JLabel sc1 = new JLabel("Match Score");
         JLabel sc2 = new JLabel("Mismatch Score");
         JLabel sc3 = new JLabel("Gap Score");
         score.add(sc1);
         score.add(sc2);
         score.add(sc3);
-        echange.add(score);
+        echange.add(score);*/
         score.setBackground(MyColors.fond);
 
+        /*
         // Panel des JSpinner
         JPanel spinner = new JPanel();
         spinner.setLayout(new GridLayout(1,3));
@@ -149,10 +149,10 @@ public class VueInterface extends JFrame {
                     ctrl.affichageSeq_Score();
                 }
             }
-        });
+        });*/
 
         // Panel des boutons
-        JPanel boutons = new JPanel();
+        /*JPanel boutons = new JPanel();
         MyButton COA = new MyButton();
         COA.setText("Compute Optimal Alignement");
         MyButton clear = new MyButton();
@@ -210,7 +210,7 @@ public class VueInterface extends JFrame {
                 VueMatrice.isCustomPath=true;
                 VueMatrice.isComputeAlignement=false;
             }
-        });
+        });*/
 
         this.score.setBackground(MyColors.fond);
         haut.add(echange);
@@ -219,7 +219,7 @@ public class VueInterface extends JFrame {
         this.affichageMatrice();
 
         // La barre de menu pour changer les modes
-        JMenuBar menu = new JMenuBar();
+        /*JMenuBar menu = new JMenuBar();
         this.setJMenuBar(menu);
 
         JMenu mode = new JMenu("Changer de mode");
@@ -278,7 +278,7 @@ public class VueInterface extends JFrame {
             }
             this.score.removeAll();
             this.isADN = !this.isADN;
-        });
+        });*/
     }
 
     public void affichageMatrice(){
@@ -343,14 +343,16 @@ public class VueInterface extends JFrame {
 
     // pout lancer l'affichage
     public static void main(String[] args) {
-        if (args[0].length()>=1) csv_path = args[0];
+        if(args.length>1) {
+            if (args[0].length()>=1) csv_path = args[0];
+        }
         else csv_path = "../Modele/matriceProt.csv";
-        SwingUtilities.invokeLater(new Runnable() {
+        /*javax.swing.SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
                 new VueInterface();
             }
-        });
+        });*/
     }
 
     //affiche les messages d'erreur dans des JDialogue
@@ -367,6 +369,21 @@ public class VueInterface extends JFrame {
     //met à jour le Global d'une VueInterface
     public void setGlobal(Global g){
         this.global=g;
+        this.s1.setText(g.getSeq1());
+        this.s2.setText(g.getSeq2());
+        this.s1.revalidate();
+        this.s1.repaint();
+        this.s2.revalidate();
+        this.s2.repaint();
         this.setScore();
+        this.affichageMatrice();
+        Controleur controleur = new Controleur(global, VueInterface.this);
+        controleur.miseAJourSeq(true,s1.getText());
+        controleur.miseAJourSeq(false,s2.getText());
+        if (VueInterface.this.score.getComponentCount()!=0)controleur.effacerChemin(false);//retire l'ancien panneau du score s'il existe
+        controleur.calculerChemin();
+        controleur.affichageSeq_Score();
+        VueMatrice.isComputeAlignement=true;
+        VueMatrice.isCustomPath=false;
     }
 }

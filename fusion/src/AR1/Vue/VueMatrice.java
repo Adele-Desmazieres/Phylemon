@@ -34,7 +34,7 @@ public class VueMatrice extends JPanel implements MouseInputListener {
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-    	if(this.isEnabled()) {//si on peut cliquer sur la case
+    	/*if(this.isEnabled()) {//si on peut cliquer sur la case
     		if(premiereCase==caseM) {//cela veut dire qu'on a de nouveau cliqué sur le bouton pour revenir en arrière
     			//il faut récupérer la case précédente pour la mettre dans premiereCase
     			premiereCase=VueMatrice.this.vue.getGlobal().estLaPrecedente((CaseMatrice)caseM);
@@ -56,7 +56,7 @@ public class VueMatrice extends JPanel implements MouseInputListener {
 				this.repaint();
     		}
 
-    	}
+    	}*/
     }
 
     @Override
