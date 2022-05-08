@@ -18,17 +18,17 @@ Ce projet a été testé avec `SDK 11` et `Java Swing`. L’installation de ces 
 tar xf fusion.tar
 ```  
 
-2. Se placer dans src/AR1 de fusion : 
+2. Se placer dans src de fusion : 
 ```
-cd fusion/src/AR1
+cd fusion/src
 ```
 
 3. Compiler le projet à l'aide de la commande :
 ```
-javac Launcher.java
+javac AR1/*/*.java AR2/Launcher.java
 ```
 
 4. Exécuter le projet à l'aide de la commande :
 ```
-java Launcher
+java AR2.Launcher
 ```
