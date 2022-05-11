@@ -34,29 +34,6 @@ public class VueMatrice extends JPanel implements MouseInputListener {
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-    	/*if(this.isEnabled()) {//si on peut cliquer sur la case
-    		if(premiereCase==caseM) {//cela veut dire qu'on a de nouveau cliqué sur le bouton pour revenir en arrière
-    			//il faut récupérer la case précédente pour la mettre dans premiereCase
-    			premiereCase=VueMatrice.this.vue.getGlobal().estLaPrecedente((CaseMatrice)caseM);
-    			((CaseMatrice)caseM).setColore(false);//on met l'attribut colore à false
-    			VueMatrice.this.vue.getGlobal().retireDerniereCase();//on retire la dernière case ajoutée
-    			if(this.caseM.getY()>1 && this.caseM.getX()>1)this.setBackground(Color.white);//on met la couleur de fond à white
-				else this.setBackground(MyColors.rose);
-				VueMatrice.this.vue.miseAJourCustom();
-				this.revalidate();
-				this.repaint();
-    		}
-    		else if(premiereCase==null || this.casesVoisines()) {
-    			premiereCase=caseM;
-				((CaseMatrice)caseM).setColore(true);//on met l'attribut colore à true
-				VueMatrice.this.vue.getGlobal().ajoutCaseSurChemin((CaseMatrice)caseM);//on ajoute la case dans le chemin
-    			this.setBackground(MyColors.bleu);
-				VueMatrice.this.vue.miseAJourCustom();
-				this.revalidate();
-				this.repaint();
-    		}
-
-    	}*/
     }
 
     @Override
