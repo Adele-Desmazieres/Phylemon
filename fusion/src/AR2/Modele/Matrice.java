@@ -64,6 +64,8 @@ public class Matrice {
 			}
 		}
 		//REMPLIR TAB
+		this.distMax = Double.MIN_VALUE;
+		this.distMin = Double.MAX_VALUE;
 		for (int i = 0; i < tableau.length; i++) {
 			for (int j = 0; j <= i; j++) { // parcourt triangulaire de la matrice :
 				// dans le sens de lecture toutes les cases sous ou dans la diagonale
@@ -114,7 +116,6 @@ public class Matrice {
 		Espece[] aFusionner = this.especeAFusionner();
 		EspeceAncetre anc = this.resize(aFusionner[0], aFusionner[1]);
 		this.remplirGlobals();
-		System.out.println(aFusionner[0].getNom());
 		Arbre a1 = this.arbreDeRacine(aFusionner[0]);
 		Arbre a2 = this.arbreDeRacine(aFusionner[1]);
 		arbres.remove(a1);

@@ -235,11 +235,11 @@ public class CreaArbre extends JPanel {
         for (int i = 0; i < controleur.getEspecesTableau().size(); i++) {
             this.matrice_pan.add(new JLabel(controleur.getEspecesTableau().get(i).getNom(), SwingConstants.RIGHT));
             for (int j=0; j < controleur.getTableau().length; j++) {
-                MyJLabel caseVal = new MyJLabel(controleur.getTableau()[i][j]+"",i, j, SwingConstants.CENTER);
+                MyJLabel caseVal = new MyJLabel(((int)controleur.getTableau()[i][j])+"",i, j, SwingConstants.CENTER);
 
                 caseVal.setOpaque(true);
                 // Initialisation de la Couleur de fond en fonction de sa valeur ; gradient(double d, double max)
-                caseVal.setBackground(gradient(controleur.getTableau()[i][j], controleur.getDistMax(), controleur.getDistMin()));
+                caseVal.setBackground(gradient((controleur.getTableau()[i][j]), controleur.getDistMax(), controleur.getDistMin()));
                 this.matrice_pan.add(caseVal);
             }
             this.matrice_pan.add(new JLabel("", SwingConstants.CENTER));
