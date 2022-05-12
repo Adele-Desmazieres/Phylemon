@@ -1,2 +1,4 @@
-*/*/*/*/*.class
-*/*/*/*.class
+fusion/src/*/*/*.class
+fusion/src/AR2/Launcher.class
+fusion/fusion.iml
+fusion/out
