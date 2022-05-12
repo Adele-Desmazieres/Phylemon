@@ -172,15 +172,15 @@ public class Global {
     public CaseMatrice[] renvoieTriangle(Case c) {
     	//if (c.getX()<=1 || c.getY()<=1) return null;
     	CaseMatrice[] triangle=new CaseMatrice[3];
-    	if (this.cases[c.getX()-1][c.getY()-1] instance of CaseMatrice) triangle[0]=(CaseMatrice)this.cases[c.getX()-1][c.getY()-1];//en haut à gauche
-    	if (this.cases[c.getX()-1][c.getY()] instance of CaseMatrice) triangle[1]=(CaseMatrice)this.cases[c.getX()-1][c.getY()];//en haut au-dessus
-    	if (this.cases[c.getX()][c.getY()-1] instance of CaseMatrice) triangle[2]=(CaseMatrice)this.cases[c.getX()][c.getY()-1];//sur la même ligne à gauche
+    	if(this.cases[c.getX()-1][c.getY()-1] instanceof CaseMatrice)triangle[0]=(CaseMatrice)this.cases[c.getX()-1][c.getY()-1];//en haut à gauche
+    	if(this.cases[c.getX()-1][c.getY()] instanceof CaseMatrice)triangle[1]=(CaseMatrice)this.cases[c.getX()-1][c.getY()];//en haut au-dessus
+    	if(this.cases[c.getX()][c.getY()-1] instanceof CaseMatrice)triangle[2]=(CaseMatrice)this.cases[c.getX()][c.getY()-1];//sur la même ligne à gauche
     	return triangle;
     }
     
     //méthode utilisée dans la recherche du chemin optimal
     public void cheminOptimalRec(LinkedList<CaseMatrice> enCours, CaseMatrice c){
-    	if (this.estVoisinAvec0(c) || (c.getX()==2 && c.getY()==2)){
+    	if (this.estVoisinAvec0(c) || (c.getX()==2 && c.getY()==2)){//condition d'arrêt
             this.chemin=this.copieList(enCours);//on copie la liste actuelle et on l'a met dans le chemin
             return;
         }
@@ -188,21 +188,21 @@ public class Global {
     	//if(triangle==null) return ;//alors la case est "en bordure"
 
     	int val0=c.getValeur(), val1=c.getValeur(), val2=c.getValeur();// on récupère la valeur issue de l'alignement des deux nucléotides parents pour la case en paramètre de la fonction
-    	if(triangle[0]!=null && this.estUnGap(c,triangle[0])) val0=this.gapScore;//si c'est un gap, on met à jour la valeur
-    	if(triangle[1]!=null && this.estUnGap(c,triangle[1])) val1=this.gapScore;
-    	if(triangle[2]!=null && this.estUnGap(c,triangle[2])) val2=this.gapScore;
-    	if(triangle[0]!=null && (triangle[0].getScore()+val0)==c.getScore()) {//on regarde si le score dans la case en diagonale sommée avec la valeur de la case actuelle est égale au score de la case actuelle
-    		enCours.add(triangle[0]);//on ajoute la case en question 
+    	if(triangle[0]!=null && this.estUnGap(c, triangle[0])) val0=this.gapScore;//si c'est un gap, on met à jour la valeur
+    	if(triangle[1]!=null && this.estUnGap(c, triangle[1])) val1=this.gapScore;
+    	if(triangle[2]!=null && this.estUnGap(c, triangle[2])) val2=this.gapScore;
+    	if(triangle[0]!=null &&(triangle[0].getScore()+val0)==c.getScore()) {//on regarde si le score dans la case en diagonale sommée avec la valeur de la case actuelle est égale au score de la case actuelle
+            enCours.add(triangle[0]);//on ajoute la case en question 
     		this.cheminOptimalRec(enCours, triangle[0]);// on fait un appel récursif en changeant de point de vue
     		enCours.remove(triangle[0]);// on enlève la case précédemment ajoutée et on teste de la même manière avec les deux autres
     	}
-    	if(triangle[1]!=null && (triangle[1].getScore()+val1)==c.getScore()) {
-    		enCours.add(triangle[1]);
+    	if(triangle[1]!=null &&(triangle[1].getScore()+val1)==c.getScore()) {//de même ici
+            enCours.add(triangle[1]);
     		this.cheminOptimalRec(enCours, triangle[1]);
     		enCours.remove(triangle[1]);
     	}
-    	if(triangle[2]!=null && (triangle[2].getScore()+val2)==c.getScore()) {
-    		enCours.add(triangle[2]);
+    	if(triangle[2]!=null &&(triangle[2].getScore()+val2)==c.getScore()) {
+            enCours.add(triangle[2]);
     		this.cheminOptimalRec(enCours, triangle[2]);
     		enCours.remove(triangle[2]);
     	}
