@@ -170,11 +170,11 @@ public class Global {
     
   //renvoie le triangle des cases utilisées lors du calcul du score
     public CaseMatrice[] renvoieTriangle(Case c) {
-    	if (c.getX()<=1 || c.getY()<=1) return null;
+    	//if (c.getX()<=1 || c.getY()<=1) return null;
     	CaseMatrice[] triangle=new CaseMatrice[3];
     	if (this.cases[c.getX()-1][c.getY()-1] instance of CaseMatrice) triangle[0]=(CaseMatrice)this.cases[c.getX()-1][c.getY()-1];//en haut à gauche
     	if (this.cases[c.getX()-1][c.getY()] instance of CaseMatrice) triangle[1]=(CaseMatrice)this.cases[c.getX()-1][c.getY()];//en haut au-dessus
-    	if (this.cases[c.getX()][c.getY()-1] instance of CaseMatrice)triangle[2]=(CaseMatrice)this.cases[c.getX()][c.getY()-1];//sur la même ligne à gauche
+    	if (this.cases[c.getX()][c.getY()-1] instance of CaseMatrice) triangle[2]=(CaseMatrice)this.cases[c.getX()][c.getY()-1];//sur la même ligne à gauche
     	return triangle;
     }
     
@@ -191,7 +191,7 @@ public class Global {
     	if(triangle[0]!=null && this.estUnGap(c,triangle[0])) val0=this.gapScore;//si c'est un gap, on met à jour la valeur
     	if(triangle[1]!=null && this.estUnGap(c,triangle[1])) val1=this.gapScore;
     	if(triangle[2]!=null && this.estUnGap(c,triangle[2])) val2=this.gapScore;
-    	if(triangle[0]!=null && (triangle[0].getScore()+val0))==c.getScore()) {//on regarde si le score dans la case en diagonale sommée avec la valeur de la case actuelle est égale au score de la case actuelle
+    	if(triangle[0]!=null && (triangle[0].getScore()+val0)==c.getScore()) {//on regarde si le score dans la case en diagonale sommée avec la valeur de la case actuelle est égale au score de la case actuelle
     		enCours.add(triangle[0]);//on ajoute la case en question 
     		this.cheminOptimalRec(enCours, triangle[0]);// on fait un appel récursif en changeant de point de vue
     		enCours.remove(triangle[0]);// on enlève la case précédemment ajoutée et on teste de la même manière avec les deux autres
