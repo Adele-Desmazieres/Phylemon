@@ -31,6 +31,7 @@ public class CreaArbre extends JPanel {
     private class MyJLabel extends JLabel implements MouseInputListener{
         public int i;
         public int j;
+        public Color color;
 
         public MyJLabel(String s,int i, int j,int pos){
             super(s,pos);
@@ -58,10 +59,12 @@ public class CreaArbre extends JPanel {
 
         @Override
         public void mouseEntered(MouseEvent mouseEvent) {
+            this.setBackground(new Color(160, 230, 250));
         }
 
         @Override
         public void mouseExited(MouseEvent mouseEvent) {
+            this.setBackground(this.color);
         }
 
         @Override
@@ -240,6 +243,7 @@ public class CreaArbre extends JPanel {
                 caseVal.setOpaque(true);
                 // Initialisation de la Couleur de fond en fonction de sa valeur ; gradient(double d, double max)
                 caseVal.setBackground(gradient((controleur.getTableau()[i][j]), controleur.getDistMax(), controleur.getDistMin()));
+                caseVal.color = gradient((controleur.getTableau()[i][j]), controleur.getDistMax(), controleur.getDistMin());
                 this.matrice_pan.add(caseVal);
             }
             this.matrice_pan.add(new JLabel("", SwingConstants.CENTER));
