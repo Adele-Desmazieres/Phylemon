@@ -13,10 +13,7 @@ Ces instructions vont vous permettre d’obtenir une version fonctionnelle de no
 Ce projet a été testé avec `SDK 11` et `Java Swing`. L’installation de ces versions est recommandée pour pouvoir lancer le projet correctement.
 
 ## Installation
-1. Décompresser le dépot du projet depuis le répertoire parent. Dans une console UNIX, utiliser la commande suivante :
-```
-tar xf fusion.tar
-```  
+1. Cloner le dépot du projet depuis le répertoire parent. Dans une console UNIX, utiliser la commande suivante `git clone`.
 
 2. Se placer dans src de fusion : 
 ```
